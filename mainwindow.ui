@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ToDo</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* Estilos para QMainWindow */
@@ -209,7 +209,7 @@ QListWidget::item {
 	max-height: 32px;
 	width: 100%;
 	max-width:100%;
-    color: black; /* Color del texto de cada elemento de la lista */
+    color: white; /* Color del texto de cada elemento de la lista */
 	background-color:rgb(65, 65, 65);
     border-bottom: 1px solid darkgray; /* Borde inferior de cada elemento de la lista */
     padding: 5px; /* Espaciado interno de cada elemento de la lista */
@@ -217,7 +217,7 @@ QListWidget::item {
 }
 
 QListWidget::item:selected {
-    background-color: rgb(139, 139, 139); /* Color de fondo cuando un elemento de la lista está seleccionado */
+    background-color: #8e8e8e; /* Color de fondo cuando un elemento de la lista está seleccionado */
     color: white; 
     border: none;
 	outline: none;
