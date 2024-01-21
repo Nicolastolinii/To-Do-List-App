@@ -6,17 +6,53 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>896</width>
+    <height>663</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/* Estilos para QMainWindow */
+QMainWindow {
+    background-color: rgb(33, 33, 33); /* Color de fondo */
+	color:white;
+}
+
+/* Widget central (área principal) */
+QMainWindow::centralWidget {
+    background-color: white; /* Color de fondo del área principal */
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QFrame" name="frameEncabezado">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* Estilos para el QFrame del encabezado */
+QFrame#frameEncabezado {
+    color: white; /* Color del texto del encabezado */
+    border-bottom: 2px solid black; /* Borde inferior del encabezado */
+	height: 50px;
+	max-height: 100px;
+	text-align: center;
+
+}
+
+QFrame#frameEncabezado QLabel {
+    font-size: 5px; /* Tamaño de la fuente para el título de la aplicación */
+    font-weight: bold; /* Negrita para el título de la aplicación */
+    padding: 0px; /* Espaciado interno para el título de la aplicación */
+    text-align: center; /* Centrar el texto */
+    width: 100%; /* Hacer que el QLabel ocupe el 100% del ancho del contenedor */
+}
+</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -39,8 +75,22 @@
        </item>
        <item>
         <widget class="QLabel" name="titulo">
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: white; /* Color del texto */
+    font-size: 20px; /* Tamaño de la fuente para el título de la aplicación */
+    font-weight: bold; /* Negrita para el título de la aplicación */
+    padding: 1px 0px; /* Espaciado interno para el título de la aplicación */
+    text-align: center; /* Centrar el texto horizontalmente */
+    line-height: 100%; /* Centrar el texto verticalmente */
+    width: 100%; 
+	height: 40px;
+	max-height: 50px;
+}
+</string>
+         </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;To-Do-List&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-family:'Google Sans','arial','sans-serif'; font-size:16px; font-weight:400; color:#bdc1c6; background-color:#202124;&quot;&gt;✔✔&lt;/span&gt;To-Do-List&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -61,6 +111,73 @@
      </widget>
     </item>
     <item>
+     <widget class="QFrame" name="frameInput">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLineEdit" name="input">
+         <property name="styleSheet">
+          <string notr="true">/* Hoja de estilo para QPushButton y QLineEdit */
+QPushButton, QLineEdit {
+    padding: 5px 10px; /* 5px arriba y abajo, 10px a los lados */
+    text-align: center; /* Centrar el texto */
+ 	border-radius: 14px;
+    background-color:#FFFFFF; /* Color de fondo */
+    color: black; /* Color del texto */
+}
+
+/* Estilo cuando el ratón está sobre el botón */
+QPushButton:hover {
+    background-color: gray;
+    color: black;
+}
+
+</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addTask">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #FFC200;
+    color: #3f3f3f;
+    border-radius: 13px;
+    padding: 5px 32px; 
+    text-align: center;
+}
+
+QPushButton:hover {
+    background-color: #cc9900;
+    color: #3f3f3f;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>+  Add</string>
+         </property>
+         <property name="icon">
+          <iconset theme="window-new"/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
      <widget class="QFrame" name="frameLayout">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -73,11 +190,45 @@
         <widget class="QListWidget" name="listWidget">
          <property name="font">
           <font>
-           <family>Verdana</family>
+           <family>Arial</family>
            <pointsize>11</pointsize>
            <italic>false</italic>
-           <bold>false</bold>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* Estilos para QListWidget */
+QListWidget {
+    background-color: #d6d6d6; /* Color de fondo de la lista */
+	border-radius: 10px;
+}
+
+/* Elementos de la lista */
+QListWidget::item {
+	height: 32px;
+	max-height: 32px;
+	width: 100%;
+	max-width:100%;
+    color: black; /* Color del texto de cada elemento de la lista */
+	background-color:rgb(65, 65, 65);
+    border-bottom: 1px solid darkgray; /* Borde inferior de cada elemento de la lista */
+    padding: 5px; /* Espaciado interno de cada elemento de la lista */
+	padding-left: 15px;
+}
+
+QListWidget::item:selected {
+    background-color: rgb(139, 139, 139); /* Color de fondo cuando un elemento de la lista está seleccionado */
+    color: white; 
+    border: none;
+	outline: none;
+}
+</string>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -92,6 +243,27 @@
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QPushButton" name="modify">
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #FFC200;
+    color: #3f3f3f;
+    border-radius: 13px;
+    padding: 5px 10px; 
+    text-align: center;
+	margin:0px 12px;
+}
+
+QPushButton:hover {
+    background-color: #cc9900;
+    color: #3f3f3f;
+}
+</string>
+            </property>
             <property name="text">
              <string>Modify</string>
             </property>
@@ -99,6 +271,27 @@
           </item>
           <item>
            <widget class="QPushButton" name="Delete">
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #FFC200;
+    color: #3f3f3f;
+    border-radius: 13px;
+    padding: 5px 10px; 
+    text-align: center;
+	margin:0px 12px;
+}
+
+QPushButton:hover {
+    background-color: #cc9900;
+    color: #3f3f3f;
+}
+</string>
+            </property>
             <property name="text">
              <string>Delete</string>
             </property>
@@ -112,7 +305,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>324</height>
+              <height>318</height>
              </size>
             </property>
            </spacer>
@@ -123,47 +316,8 @@
       </layout>
      </widget>
     </item>
-    <item>
-     <widget class="QFrame" name="frameInput">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLineEdit" name="input"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addTask">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-         <property name="icon">
-          <iconset theme="window-new"/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

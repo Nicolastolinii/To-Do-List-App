@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+#include <QCheckBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,9 +29,12 @@ private slots:
     void on_modify_clicked();
     void loadTasks();
     void saveTasks();
-    QString getCurrentDateTime();
+    void applyCheckBoxStyles(QCheckBox *checkBox);
+public slots:
+    void onTaskWidgetStateChanged(bool checked);
 
 private:
     Ui::MainWindow *ui;
+    QListWidget *listWidget;
 };
 #endif // MAINWINDOW_H

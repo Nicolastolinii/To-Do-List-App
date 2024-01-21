@@ -2,6 +2,9 @@
 #include "./ui_mainwindow.h"
 #include <QInputDialog>
 #include <QSettings>
+#include <QCheckBox>
+#include "taskwidget.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->input, &QLineEdit::returnPressed, this, &MainWindow::on_input_returnPressed);
+    QListWidget *listWidget = ui->listWidget;
     // Cargar las tareas guardadas
     loadTasks();
 }
@@ -16,36 +20,100 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    saveTasks();
+}
+void MainWindow::applyCheckBoxStyles(QCheckBox *checkBox)
+{
+    // Implementa aquí la lógica para aplicar los estilos al QCheckBox
+    // Puedes utilizar setStyleSheet u otras propiedades según tus necesidades
+}
+void MainWindow::onTaskWidgetStateChanged(bool checked)
+{
+    if (checked) {
+        qDebug() << "Checkbox marcado";
+    } else {
+        qDebug() << "Checkbox desmarcado";
+    }
+    // Agrega aquí cualquier otra lógica que desees ejecutar al cambiar el estado del widget
 }
 void MainWindow::loadTasks()
 {
     QSettings settings("TuEmpresa", "TuAplicacion");
-    QStringList tasks = settings.value("tasks").toStringList();
+    QList<QVariant> taskList = settings.value("tasks").toList();
+
+    // Borrar las tareas existentes en el QListWidget
+    ui->listWidget->clear();
 
     // Cargar las tareas en el QListWidget
-    ui->listWidget->addItems(tasks);
+    for (const QVariant &taskVariant : taskList) {
+        QVariantMap taskMap = taskVariant.toMap();
+
+        QString taskText = taskMap["text"].toString();
+        bool completed = taskMap["completed"].toBool();
+
+        // Crear un nuevo elemento para el QListWidget
+        QListWidgetItem *taskItem = new QListWidgetItem(ui->listWidget);
+        taskItem->setText(taskText);
+
+        // Crear un nuevo TaskWidget
+        TaskWidget *taskWidget = new TaskWidget(taskText);
+
+        // Establecer el estado del TaskWidget
+        taskWidget->setChecked(completed);
+
+        // Asignar el TaskWidget al elemento del QListWidget
+        ui->listWidget->setItemWidget(taskItem, taskWidget);
+
+        // Conectar la señal stateChanged del TaskWidget a la ranura onTaskWidgetStateChanged
+        connect(taskWidget, &TaskWidget::stateChanged, this, &MainWindow::onTaskWidgetStateChanged);
+    }
 }
 
 void MainWindow::saveTasks()
 {
     QSettings settings("TuEmpresa", "TuAplicacion");
-    QStringList tasks;
+    QList<QVariant> taskList;
 
     // Obtener las tareas del QListWidget y agregarlas a la lista
     for (int i = 0; i < ui->listWidget->count(); ++i) {
-        tasks << ui->listWidget->item(i)->text();
+        QListWidgetItem *taskItem = ui->listWidget->item(i);
+        TaskWidget *taskWidget = qobject_cast<TaskWidget*>(ui->listWidget->itemWidget(taskItem));
+
+        if (taskWidget) {
+            QString taskText = taskItem->text();
+            bool completed = taskWidget->isChecked(); // Obtener el estado del checkbox desde TaskWidget
+            qDebug() << completed;
+            // Guardar la tarea y su estado de completado en la lista
+            QVariantMap taskMap;
+            taskMap.insert("text", taskText);
+            taskMap.insert("completed", completed);
+            taskList.append(taskMap);
+        }
     }
 
     // Guardar las tareas en el archivo
-    settings.setValue("tasks", tasks);
+    settings.setValue("tasks", taskList);
 }
 
 void MainWindow::on_addTask_clicked()
 {
     QString input = ui->input->text();
     if (!input.isEmpty()) {
-        ui->listWidget->addItem(input);
+        // Crear un nuevo elemento para el QListWidget
+        QListWidgetItem *taskItem = new QListWidgetItem(ui->listWidget);
+        taskItem->setText(input);
+
+        // Crear un nuevo TaskWidget
+        TaskWidget *taskWidget = new TaskWidget(input);
+        taskWidget->findChild<QCheckBox*>()->setMinimumSize(14, 14);
+
+        // Asignar el TaskWidget al elemento del QListWidget
+        ui->listWidget->setItemWidget(taskItem, taskWidget);
+
+        // Limpiar el QLineEdit
         ui->input->clear();
+
+        // Guardar las tareas
         saveTasks();
     }
 }
@@ -89,4 +157,5 @@ void MainWindow::on_modify_clicked()
         }
     }
 }
+
 
