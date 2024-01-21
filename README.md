@@ -1,7 +1,7 @@
 <h1 align="center">To-Do List App</h1>
 
 <p align="center">
-  <img src="screenshots/screen1.png" alt="To-Do List App">
+  <img src="screenshot/screen1.png" alt="To-Do List App">
 </p>
 
 <h2 align="center">Descripción</h2>
@@ -13,8 +13,8 @@
 <h2 align="center">Capturas de Pantalla</h2>
 
 <p align="center">
-  <img src="screenshots/screen2.png" alt="Captura de Pantalla 1" width="400">
-  <img src="screenshots/screen3.png" alt="Captura de Pantalla 2" width="400">
+  <img src="screenshot/screen2.png" alt="Captura de Pantalla 1" width="400">
+  <img src="screenshot/screen3.png" alt="Captura de Pantalla 2" width="400">
 </p>
 
 <h2 align="center">Características</h2>
