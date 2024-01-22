@@ -23,6 +23,12 @@
 - Marcar tareas como completadas.
 - Editar el texto de las tareas existentes.
 - Eliminar tareas.
+- 
+## Descargas
+
+Puedes descargar la última versión de la aplicación desde el siguiente enlace:
+
+[**Descargar Mi Aplicación**]([enlace_al_zip](https://github.com/Nicolastolinii/To-Do-List-App/blob/main/ToDoList.zip))
 
 <h2 align="center">Instalación</h2>
 
