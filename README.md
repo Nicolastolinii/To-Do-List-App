@@ -28,7 +28,7 @@
 
 Puedes descargar la última versión de la aplicación desde el siguiente enlace:
 
-[**Descargar Mi Aplicación**](https://github.com/Nicolastolinii/To-Do-List-App/blob/main/ToDoList.zip)
+[**Descargar Mi Aplicación**](https://github.com/Nicolastolinii/To-Do-List-App/releases/tag/V-0.1.1)
 
 <h2 align="center">Instalación</h2>
 
